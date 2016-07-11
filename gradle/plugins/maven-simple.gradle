@@ -1,0 +1,18 @@
+apply plugin: 'maven'
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from (sourceSets.main.output) {
+        include "**/*.class"
+    }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}

@@ -1,0 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.ltgt.gradle:gradle-apt-plugin:0.6"
+        classpath "ru.d10xa:gradle-allure-plugin:0.5.0"
+    }
+}
+
+ext {
+    janetHttpVersion = '1.0.9'
+    immutablesVersion = '2.2.8'
+}

@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: "net.ltgt.apt"
+apply from: rootProject.file('gradle/plugins/gradle-mvn-push.gradle')
+
+compileJava {
+    sourceCompatibility = 1.6
+    targetCompatibility = 1.6
+}
+
+sourceSets {
+    aptsrc {
+        java {
+            srcDir 'build/generated/source/apt/main'
+        }
+    }
+}
+
+configurations{
+    aptsrc.extendsFrom main
+}
+
+compileJava {
+    options.compilerArgs += '-Ajanet.http.factory.class.suffix=ForGitHubApi'
+}
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    compile 'com.github.techery:janet:1.0.5'
+    //
+    compile "com.github.techery.janet-http:service:$rootProject.ext.janetHttpVersion"
+    apt     "com.github.techery.janet-http:service-compiler:$rootProject.ext.janetHttpVersion"
+    compile "com.github.techery.janet-http:client-okhttp3:$rootProject.ext.janetHttpVersion"
+    //
+    compile 'com.github.techery.janet-converters:gson:1.0.1'
+    compile 'com.google.code.gson:gson:2.6.2'
+    //
+    compileOnly "org.immutables:value:$rootProject.ext.immutablesVersion"
+    apt     "org.immutables:value:$rootProject.ext.immutablesVersion"
+    compileOnly "org.immutables:gson:$rootProject.ext.immutablesVersion"
+    compileOnly "org.immutables:android-stub:$rootProject.ext.immutablesVersion"
+    compileOnly 'com.intellij:annotations:9.0.4'
+    //
+    compile 'joda-time:joda-time:2.9.3'
+}
+
+

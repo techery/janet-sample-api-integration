@@ -1,0 +1,21 @@
+{
+  "username": "dirong",
+  "update_params": {
+    "name": "monalisa octocat",
+    "email": "Venows1954@teleworm.us",
+    "blog": "https://github.com/blog",
+    "company": "GitHub",
+    "location": "San Francisco",
+    "hireable": true,
+    "bio": "There once..."
+  },
+  "default_params": {
+    "name": "testich",
+    "email": "Venows1954@teleworm.us",
+    "blog": "https://github.com/blog",
+    "company": "GitHub",
+    "location": "San Francisco",
+    "hireable": true,
+    "bio": "There once..."
+  }
+}

@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="GitHub API Integration Tests" data-provider-thread-count="50" parallel="methods" thread-count="10"
+    verbose="1">
+
+    <test name="Smoke Test">
+        <packages>
+            <package name="io.techery.github.api.tests.smoke.*" />
+        </packages>
+    </test>
+
+</suite>

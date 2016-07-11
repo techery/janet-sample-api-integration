@@ -1,0 +1,134 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: "net.ltgt.apt"
+apply plugin: 'ru.d10xa.allure'
+
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
+
+// Testing with Allure
+
+test.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
+}
+
+test {
+    useTestNG() {
+        environment buildTestEnv(project.file('env.properties'))
+        suiteXmlFiles.addAll sourceSets.test.resources.include("suite/*.xml").files
+    }
+    ignoreFailures = true
+}
+
+sourceSets {
+    test {
+        resources {
+            include "**/*"
+        }
+    }
+}
+
+allure {
+    allureVersion = "1.4.23"
+    //
+    testNG = true
+    junit = false
+    spock = false
+    geb = false
+    //
+    aspectjweaver = true
+    aspectjVersion = "1.8.9"
+}
+task allureEnvironmentProps << {
+    def outputDir = new File(project.allure.allureResultsDir)
+    outputDir.mkdirs()
+    //
+    Properties envProps = new Properties()
+    collectTestEnv(project.file('env.properties')).each {k, v -> envProps.setProperty(k, v)}
+    envProps.store(new FileOutputStream(new File(outputDir, 'environment.properties')), null)
+}
+allureReport.dependsOn test, allureEnvironmentProps
+task testWithReport(dependsOn: 'allureReport') {
+    group = LifecycleBasePlugin.VERIFICATION_GROUP
+}
+
+// Testing env and addition
+
+/**
+ * Loads environment properties from .properties and project params.
+ * It loads keys defined at file, but looks for -P params first.
+ * <p/>
+ * @param defaultPropsFile - is used to load env keys and get default values if not provided with project run
+ * @return map of java-like key-value params. E.g. -Papi.url becomes System.getenv("API_URL")
+ */
+def buildTestEnv(defaultPropsFile) {
+    return collectTestEnv(defaultPropsFile).collectEntries { k, v ->
+        def javishKey = k.toUpperCase().replaceAll('\\.', '_')
+        [javishKey, v]
+    }
+}
+
+def collectTestEnv(defaultPropsFile) {
+    Properties defaultEnvProps = new Properties()
+    defaultEnvProps.load(new FileInputStream(defaultPropsFile))
+    def envProperties = defaultEnvProps.collectEntries { k, v ->
+        def activeProperty = project.hasProperty(k) ? project.getProperty(k) : v
+        [k, activeProperty]
+    }
+    return envProperties
+}
+
+// Sources, Configurations & Apt
+
+sourceSets {
+    aptsrc {
+        java {
+            srcDir 'build/generated/source/apt/test'
+        }
+    }
+}
+
+configurations {
+    aptsrc.extendsFrom main
+}
+
+configurations {
+    agent
+}
+
+// Dependencies
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+}
+
+dependencies {
+    testCompile project(':library')
+    testApt     "com.github.techery.janet-http:service-compiler:$rootProject.ext.janetHttpVersion"
+    //
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.testng:testng:6.9.11'
+    testCompile 'org.hamcrest:hamcrest-all:1.3'
+    testCompile 'org.assertj:assertj-core:3.4.1'
+    testCompile "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.22"
+    testCompile 'org.slf4j:slf4j-simple:1.7.21'
+    testCompile 'commons-logging:commons-logging:1.1.1'
+    testCompile 'ie.corballis:json-fixtures-lib:1.0.4'
+    agent "org.aspectj:aspectjweaver:1.8.9"
+    //
+    testCompile 'com.squareup.okhttp3:logging-interceptor:3.3.0'
+    //
+    testCompile "org.immutables:value:$rootProject.ext.immutablesVersion"
+    testApt     "org.immutables:value:$rootProject.ext.immutablesVersion"
+    testCompile "org.immutables:gson:$rootProject.ext.immutablesVersion"
+    testCompile 'com.intellij:annotations:9.0.4'
+
+    testCompile 'com.github.kenglxn.QRGen:javase:2.1.0'
+    testCompile 'com.google.zxing:core:3.2.1'
+    testCompile 'com.google.zxing:javase:3.2.1'
+}
+
+
