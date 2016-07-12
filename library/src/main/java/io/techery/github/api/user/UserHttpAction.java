@@ -1,6 +1,6 @@
 package io.techery.github.api.user;
 
-import io.techery.github.api.api_common.AuthorizedHttpAction;
+import io.techery.github.api.common.AuthorizedHttpAction;
 import io.techery.github.api.user.model.User;
 import io.techery.janet.http.annotations.HttpAction;
 import io.techery.janet.http.annotations.Response;

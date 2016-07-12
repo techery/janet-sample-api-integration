@@ -8,7 +8,6 @@ import org.immutables.value.Value;
 @Gson.TypeAdapters
 @Value.Immutable
 public interface UpdateUserParams {
-
     @SerializedName("name")
     String name();
     @SerializedName("email")

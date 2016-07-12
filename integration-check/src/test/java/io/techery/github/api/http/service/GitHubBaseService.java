@@ -1,6 +1,6 @@
 package io.techery.github.api.http.service;
 
-import io.techery.github.api.api_common.BaseHttpAction;
+import io.techery.github.api.common.BaseHttpAction;
 import io.techery.github.api.http.EnvParams;
 
 import io.techery.janet.ActionHolder;

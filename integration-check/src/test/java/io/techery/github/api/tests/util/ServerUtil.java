@@ -1,7 +1,7 @@
 package io.techery.github.api.tests.util;
 
-import io.techery.github.api.api_common.BaseHttpAction;
-import io.techery.github.api.api_common.error.ErrorResponse;
+import io.techery.github.api.common.BaseHttpAction;
+import io.techery.github.api.common.error.ErrorResponse;
 
 public class ServerUtil {
     private ServerUtil() {}

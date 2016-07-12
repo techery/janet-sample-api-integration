@@ -3,9 +3,9 @@
 <suite name="GitHub API Integration Tests" data-provider-thread-count="50" parallel="methods" thread-count="10"
     verbose="1">
 
-    <test name="Smoke Test">
+    <test name="Cases Test">
         <packages>
-            <package name="io.techery.github.api.tests.smoke.*" />
+            <package name="io.techery.github.api.tests.cases.*" />
         </packages>
     </test>
 

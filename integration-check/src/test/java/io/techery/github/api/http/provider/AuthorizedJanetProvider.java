@@ -1,7 +1,7 @@
 package io.techery.github.api.http.provider;
 
 import io.techery.github.api.http.service.GitHubAuthService;
-import io.techery.github.api.user.model.User;
+import io.techery.github.api.user.model.UserModel;
 
 public class AuthorizedJanetProvider extends BaseJanetProvider<GitHubAuthService> {
 
@@ -9,7 +9,7 @@ public class AuthorizedJanetProvider extends BaseJanetProvider<GitHubAuthService
         super(new AuthorizedHttpServiceProvider(new SystemEnvProvider().provide()).provide());
     }
 
-    public User user() {
+    public UserModel user() {
         return getService().getUser();
     }
 }

@@ -5,8 +5,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 
 import io.techery.github.api.GetServerStatusAction;
-import io.techery.github.api.api_common.BaseHttpAction;
-import io.techery.github.api.api_common.converter.GsonProvider;
+import io.techery.github.api.common.BaseHttpAction;
+import io.techery.github.api.common.converter.GsonProvider;
 import io.techery.github.api.fixtures.UserCredential;
 import io.techery.github.api.fixtures.util.FixtureAnnotations;
 import io.techery.github.api.http.executor.ActionExecutor;

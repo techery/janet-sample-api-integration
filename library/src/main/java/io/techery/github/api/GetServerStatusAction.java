@@ -1,6 +1,6 @@
 package io.techery.github.api;
 
-import io.techery.github.api.api_common.BaseHttpAction;
+import io.techery.github.api.common.BaseHttpAction;
 
 import io.techery.janet.http.annotations.HttpAction;
 

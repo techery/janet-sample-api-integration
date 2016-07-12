@@ -1,13 +1,14 @@
 package io.techery.github.api.http.service;
 
-import io.techery.github.api.api_common.AuthorizedHttpAction;
+import java.util.Base64;
+
+import io.techery.github.api.common.AuthorizedHttpAction;
 import io.techery.github.api.user.UserHttpAction;
-import io.techery.github.api.user.model.User;
+import io.techery.github.api.user.model.UserModel;
 import io.techery.janet.ActionHolder;
 import io.techery.janet.ActionService;
 import io.techery.janet.ActionServiceWrapper;
 import io.techery.janet.JanetException;
-import sun.misc.BASE64Encoder;
 
 public class GitHubAuthService extends ActionServiceWrapper {
 
@@ -17,9 +18,9 @@ public class GitHubAuthService extends ActionServiceWrapper {
 
     private UserCredential credential;
 
-    private User user;
+    private UserModel user;
 
-    public User getUser() {
+    public UserModel getUser() {
         return user;
     }
 
@@ -61,8 +62,9 @@ public class GitHubAuthService extends ActionServiceWrapper {
 
     private void tryAuthorizeAction(AuthorizedHttpAction action) {
         if (credential == null) return;
+
         action.setAuthorizationHeader("Basic " +
-                new BASE64Encoder().encode((credential.username + ":" + credential.password).getBytes()));
+                Base64.getEncoder().encodeToString((credential.username + ":" + credential.password).getBytes()));
     }
 
     private static class UserCredential {

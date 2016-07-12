@@ -5,7 +5,7 @@ import org.testng.annotations.BeforeSuite;
 import ie.corballis.fixtures.annotation.Fixture;
 import io.techery.github.api.fixtures.UserCredential;
 import io.techery.github.api.http.executor.AuthorizedActionExecutor;
-import io.techery.github.api.user.model.User;
+import io.techery.github.api.user.model.UserModel;
 
 
 public class BaseTestWithSession extends BaseTest {
@@ -26,11 +26,11 @@ public class BaseTestWithSession extends BaseTest {
         return authorizedActionExecutor;
     }
 
-    protected UserCredential authorizedUser() {
+    protected UserCredential credential() {
         return defaultUser;
     }
 
-    protected User session() {
+    protected UserModel user() {
         return authorizedActionExecutor.getCurrentUser();
     }
 }

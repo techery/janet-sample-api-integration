@@ -1,6 +1,6 @@
 package io.techery.github.api.http.provider;
 
-import io.techery.github.api.api_common.converter.GsonProvider;
+import io.techery.github.api.common.converter.GsonProvider;
 import io.techery.github.api.facility.Log;
 import io.techery.github.api.facility.LoggingWrapper;
 import io.techery.github.api.http.EnvParams;
